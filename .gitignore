@@ -42,3 +42,9 @@ yarn-debug.log*
 /config/credentials.yml.enc
 /config/database.yml
 /test
+/app/assets/stylesheets/static_pages.scss
+/app/helpers/static_pages_helper.rb
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

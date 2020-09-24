@@ -10,3 +10,16 @@ links:
     contact_page: https://www.railstutorial.org/contact
   other_website:
     michael_hartl: https://www.michaelhartl.com/
+    gravatar_email: https://gravatar.com/emails
+
+validations:
+  name:
+    max_length: 50
+  email:
+    max_length: 255
+    regex: !ruby/regexp '/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i'
+  password:
+    min_length: 6
+
+remember_me: "1"
+password_expired_time: 2    

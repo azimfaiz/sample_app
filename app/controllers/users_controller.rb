@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by params[:id]
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new 
@@ -23,27 +24,29 @@ class UsersController < ApplicationController
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
-      flash.now[:danger] = "Please try again!"
+      flash[:danger] = "Please try again!"
       render :new
     end
   end
 
   def edit
     @user = User.find_by params[:id]
-    return if @user
-    
-    flash[:danger] = "User not found"
-    redirect_to root_url
+    if @user.edit user_params
+      flash.now[:success] = "User found"
+      render :edit
+    else
+      flash[:danger] = "User not found"
+      redirect_to root_url
     end  
   end
 
   def update
     @user = User.find_by params[:id]
     if @user.update user_params
-      flash[:success] = "Profile updated"
+      flash.now[:success] = "Profile updated"
       redirect_to @user
     else
-      flash.now[:success] = "Profile not updated"
+      flash[:success] = "Profile not updated"
       render :edit
     end
   end
@@ -72,8 +75,8 @@ class UsersController < ApplicationController
     @user = User.find_by params[:id]
     return unless @user
     
-    flash[:danger] = "User not found"
-    redirect_to root_url
+      flash[:danger] = "User not found"
+      redirect_to root_url
   end
 
   def correct_user
